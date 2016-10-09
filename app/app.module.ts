@@ -16,6 +16,8 @@ import { HeroService } from './hero.service';
 import { HeroSearchComponent } from './hero-search.component';
 import { WikiComponent } from './wiki.component';
 import { WikipediaService } from './wikipedia.service';
+import { WeatherComponent } from './weather.component';
+import { WeatherService } from './weather.service';
 
 @NgModule({
     imports: [
@@ -27,7 +29,7 @@ import { WikipediaService } from './wikipedia.service';
         RouterModule.forRoot([
             {
                 path: '',
-                redirectTo: '/heroes',
+                redirectTo: '/weather',
                 pathMatch: 'full'
             },
             {
@@ -35,17 +37,22 @@ import { WikipediaService } from './wikipedia.service';
                 component: HeroesComponent
             },
             {
+                path: 'detail/:id',
+                component: HeroDetailComponent
+            },
+            {
                 path: 'wiki',
                 component: WikiComponent
             },
             {
-                path: 'detail/:id',
-                component: HeroDetailComponent
+                path: 'weather',
+                component: WeatherComponent
             }
         ])
     ],
-    declarations: [ AppComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent, WikiComponent ],
-    providers: [ HeroService, WikipediaService ],
+    declarations: [ AppComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent, WikiComponent,
+        WeatherComponent ],
+    providers: [ HeroService, WikipediaService, WeatherService ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule { }
