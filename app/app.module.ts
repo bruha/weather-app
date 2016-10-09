@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import './rxjs-extensions';
 
@@ -12,20 +12,22 @@ import { InMemoryDataService }  from './in-memory-data.service';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
-import { DashboardComponent } from './dashboard.component';
 import { HeroService } from './hero.service';
 import { HeroSearchComponent } from './hero-search.component';
+import { WikiComponent } from './wiki.component';
+import { WikipediaService } from './wikipedia.service';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+        JsonpModule,
         InMemoryWebApiModule.forRoot(InMemoryDataService),
         RouterModule.forRoot([
             {
                 path: '',
-                redirectTo: '/dashboard',
+                redirectTo: '/heroes',
                 pathMatch: 'full'
             },
             {
@@ -33,8 +35,8 @@ import { HeroSearchComponent } from './hero-search.component';
                 component: HeroesComponent
             },
             {
-                path: 'dashboard',
-                component: DashboardComponent
+                path: 'wiki',
+                component: WikiComponent
             },
             {
                 path: 'detail/:id',
@@ -42,8 +44,8 @@ import { HeroSearchComponent } from './hero-search.component';
             }
         ])
     ],
-    declarations: [ AppComponent, HeroesComponent, HeroDetailComponent, DashboardComponent, HeroSearchComponent ],
-    providers: [ HeroService ],
+    declarations: [ AppComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent, WikiComponent ],
+    providers: [ HeroService, WikipediaService ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule { }
