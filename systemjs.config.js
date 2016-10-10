@@ -22,8 +22,9 @@
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             // other libraries
-            'rxjs':                       'npm:rxjs',
+            'rxjs': 'npm:rxjs',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
+            'ng2-webstorage': 'node_modules/ng2-webstorage'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -36,6 +37,10 @@
             },
             'angular2-in-memory-web-api': {
                 main: './index.js',
+                defaultExtension: 'js'
+            },
+            'ng2-webstorage': {
+                main: 'bundles/core.umd.js',
                 defaultExtension: 'js'
             }
         }
