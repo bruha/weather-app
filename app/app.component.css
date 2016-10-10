@@ -1,3 +1,12 @@
+.cities {
+    margin-top: 1.5em;
+}
+.city {
+    position: relative;
+}
+.city-name {
+    font-size: 1.5em;
+}
 .weather-temp {
     font-size: 3em;
     font-weight: 700;
@@ -10,11 +19,16 @@
 }
 .weather-wind {
     position: relative;
-    padding-right: 1.5em;
+    padding-right: 1.7em;
 }
 .weather-wind-arrow {
     position: absolute;
     top: 0;
     right: 0.6em;
     font-weight: 700;
+}
+.del-city-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

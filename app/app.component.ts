@@ -21,7 +21,9 @@ export class AppComponent implements OnInit {
         { name: 'City name ↓', value: 'name'},
         { name: 'City name ↑', value: '!name'},
         { name: 'Temperature ↓', value: 'weather.main.temp'},
-        { name: 'Temperature ↑', value: '!weather.main.temp'}
+        { name: 'Temperature ↑', value: '!weather.main.temp'},
+        { name: 'Wind speed ↓', value: 'weather.wind.speed'},
+        { name: 'Wind speed ↑', value: '!weather.wind.speed'}
     ];
     sortBy = '';
 

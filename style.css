@@ -1,8 +1,4 @@
 /* Master Styles */
-body {
-    margin: 2em;
-}
-
 .text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
     text-align: left;
 }
