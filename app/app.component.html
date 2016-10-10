@@ -1,34 +1,67 @@
 <h1>Weather App</h1>
-<h3>Cities:</h3>
-<form (submit)="$event.preventDefault(); addCity(newCity.value); newCity.value=''">
-    <input #newCity />
-    <button type="submit">Add City</button>
-</form>
-<ul>
-    <li *ngFor="let city of cities">
-        <strong>{{city.name}}</strong>
 
-        <span *ngIf="city.weather" class="weather">
-            <span class="city-name">
-                ({{ city.weather.name }}, {{ city.weather.sys.country }})
-            </span>
+<div class="row">
+    <div class="col-sm-8">
+        <form (submit)="$event.preventDefault(); addCity(newCity.value); newCity.value=''"
+              class="form-inline">
+            <div class="form-group">
+                <label for="newCity">Add city</label>
+                <input #newCity class="form-control" id="newCity" placeholder="London, UK" />
+                <button type="submit" class="btn btn-default">+</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4">
+        <form class="form-inline text-right">
+            <div class="form-group">
+                <label for="sortBy">Sort by</label>
+                <select [(ngModel)]="sortBy" name="sortBy" class="form-control" id="sortBy">
+                    <option *ngFor="let opt of sortOptions" [ngValue]="opt.value">{{opt.name}}</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
 
-            <span class="weather-temp"> {{ city.weather.main.temp | number:'1.0-0' }}&deg;C</span>
-            <span class="weather-description">{{ city.weather.weather[0].description }}</span>
-            <img class="weather-icon"
-                 src="http://openweathermap.org/img/w/{{ city.weather.weather[0].icon }}.png"
-                 alt="{{ city.weather.weather[0].description }}" />
-
-            <span class="weather-wind">wind {{ city.weather.wind.speed }}m/s
-                <span class="weather-wind-arrow"
-                      [ngStyle]="{'transform': 'rotate(' + city.weather.wind.deg + 'deg)'}">&uarr;</span>
-            </span>
-        </span>
-
-        <span *ngIf="city.errorMessage">Error while retrieving data from server</span>
-        <button (click)="removeCity(city.name); $event.stopPropagation();">&times;</button>
+<ul class="cities list-group">
+    <li *ngFor="let city of cities | orderBy:sortBy"
+        class="city list-group-item" [class.list-group-item-danger]="city.errorMessage">
+        <div class="row">
+            <div [ngClass]="{'col-sm-4': city.weather, 'col-sm-11': !city.weather}">
+                <strong>{{city.name}}</strong>
+                <span *ngIf="city.weather"
+                      class="city-name">({{ city.weather.name }}, {{ city.weather.sys.country }})</span>
+                <span *ngIf="city.errorMessage">Error while retrieving data from server</span>
+            </div>
+            <div *ngIf="city.weather" class="col-sm-1">
+                <span class="weather-temp">{{ city.weather.main.temp | number:'1.0-0' }}</span>&deg;C
+            </div>
+            <div *ngIf="city.weather" class="col-sm-3 text-center-not-xs">
+                <img class="weather-icon"
+                     src="http://openweathermap.org/img/w/{{ city.weather.weather[0].icon }}.png"
+                     alt="{{ city.weather.weather[0].description }}" /><br/>
+                <span class="weather-description">{{ city.weather.weather[0].description }}</span>
+            </div>
+            <div *ngIf="city.weather" class="col-sm-3">
+                <span class="weather-wind">wind {{ city.weather.wind.speed }}m/s
+                    <span class="weather-wind-arrow"
+                          [ngStyle]="{transform: 'rotate(' + (city.weather.wind.deg | number:'1.0-0') + 'deg)'}"
+                    >&uarr;</span>
+                </span>
+            </div>
+            <div class="col-sm-1 text-right">
+                <button (click)="removeCity(city.name); $event.stopPropagation();"
+                        class="btn btn-link pull-right">&times;</button>
+            </div>
+        </div>
     </li>
 </ul>
+
 <div *ngIf="isSearchable()">
-    <button (click)="searchWeather()">Search weather</button>
+    <button (click)="searchWeather()" class="btn btn-primary">Search weather</button>
+</div>
+
+<div *ngIf="!isSearchable()" class="well">
+    Please, add at least {{ minCitiesNumber }} cities to search the weather.
 </div>

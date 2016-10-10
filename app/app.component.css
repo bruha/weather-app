@@ -1,7 +1,12 @@
+.weather-temp {
+    font-size: 3em;
+    font-weight: 700;
+    vertical-align: top;
+    line-height: 1em;
+}
 .weather-icon {
     width: 50px;
     height: 50px;
-    vertical-align: middle;
 }
 .weather-wind {
     position: relative;
@@ -10,6 +15,6 @@
 .weather-wind-arrow {
     position: absolute;
     top: 0;
-    right: 0.7em;
+    right: 0.6em;
     font-weight: 700;
 }

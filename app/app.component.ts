@@ -5,7 +5,7 @@ import { Weather } from './weather';
 import { City } from './city';
 import { WeatherService } from './weather.service';
 
-const MIN_NUMBER_OF_CITIES = 5;
+const MIN_CITIES_NUMBER = 5;
 
 @Component({
     moduleId: module.id,
@@ -16,6 +16,14 @@ const MIN_NUMBER_OF_CITIES = 5;
 })
 export class AppComponent implements OnInit {
     cities: City[];
+    minCitiesNumber: number;
+    sortOptions = [
+        { name: 'City name ↓', value: 'name'},
+        { name: 'City name ↑', value: '!name'},
+        { name: 'Temperature ↓', value: 'weather.main.temp'},
+        { name: 'Temperature ↑', value: '!weather.main.temp'}
+    ];
+    sortBy = '';
 
     constructor (
         private storage: LocalStorageService,
@@ -23,14 +31,16 @@ export class AppComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.minCitiesNumber = MIN_CITIES_NUMBER;
         this.getCities();
     }
 
     isSearchable() {
-        return this.cities.length >= MIN_NUMBER_OF_CITIES;
+        return this.cities.length >= this.minCitiesNumber;
     }
 
     searchWeather() {
+        this.sortBy = '';
         this.cities.forEach(city => {
             this.weatherService.search(city.name)
                 .subscribe(
@@ -44,16 +54,18 @@ export class AppComponent implements OnInit {
     }
 
     getCities() {
-        this.cities = this.storage.retrieve('cities').map(city => ({ name: city })) || [];
+        let cities = this.storage.retrieve('cities');
+        this.cities = cities && cities.map(city => ({ name: city })) || [];
     }
 
     saveCities() {
         this.storage.store('cities', this.cities.map(city => city.name));
     }
 
-    addCity(city: string) {
-        if (!city) { return; }
-        this.cities.push(<City> { name: city });
+    addCity(cityToAdd: string) {
+        if (!cityToAdd || this.cities.find(city => city.name === cityToAdd)) { return; }
+        this.sortBy = '';
+        this.cities.push(<City> { name: cityToAdd });
         this.saveCities();
     }
 

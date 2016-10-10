@@ -7,6 +7,7 @@ import './rxjs-extensions';
 
 import { AppComponent } from './app.component';
 import { WeatherService } from './weather.service';
+import { OrderByPipe } from './orderby.pipe';
 
 @NgModule({
     imports: [
@@ -15,7 +16,7 @@ import { WeatherService } from './weather.service';
         JsonpModule,
         Ng2Webstorage
     ],
-    declarations: [ AppComponent ],
+    declarations: [ AppComponent, OrderByPipe ],
     providers: [ WeatherService ],
     bootstrap: [ AppComponent ]
 })
