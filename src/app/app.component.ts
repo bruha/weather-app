@@ -8,7 +8,6 @@ import { WeatherService } from './weather.service';
 const MIN_CITIES_NUMBER = 5;
 
 @Component({
-    moduleId: module.id,
     selector: 'my-app',
     templateUrl: 'app.component.html',
     styleUrls: [ 'app.component.css' ],
